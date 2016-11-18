@@ -1,0 +1,24 @@
+import smbus
+import RPi.GPIO as GPIO
+import serial
+import time
+from grove_i2c_barometic_sensor_BMP180 import BMP085
+bmp = BMP085(0x77, 1)
+rev = GPIO.RPI_REVISION
+if rev == 2 or rev == 3:
+    bus = smbus.SMBus(1)
+else:
+    bus = smbus.SMBus(0)
+
+temp = bmp.readTemperature()
+pressure = bmp.readPressure()
+altitude = bmp.readAltitude(101560)
+y=0
+count = 0
+while True:
+    print("%.2f" % temp)
+    fp.write("$")
+    print "Pressure:    %.2f hPa" % (pressure / 100.0)
+    print("%.2f" % altitude)
+
+
